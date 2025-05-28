@@ -21,3 +21,54 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE and Editor files
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+.komodotools
+*.code-workspace
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# Build and compile files
+/public/css
+/public/js
+/public/mix-manifest.json
+/public/hot-reload.json
+
+# Cache and temporary files
+*.cache
+*.tmp
+*.temp
+.php_cs.cache
+.php-cs-fixer.cache
+
+# Testing and coverage
+/coverage
+.phpunit.cache
+.phpunit.result.cache
+/tests/coverage
+
+# Dependencies
+composer.phar
+package-lock.json
+yarn.lock
+.yarn-integrity
+
+# Local development
+docker-compose.override.yml
+*.local.php
+*.local.yml
