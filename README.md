@@ -64,3 +64,65 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+# MyNewProject
+
+## Project Setup
+
+### Prerequisites
+- PHP >= 8.1
+- Composer
+- Node.js & NPM
+- MySQL or compatible database
+
+### Installation Steps
+1. Clone the repository
+```bash
+git clone [repository-url]
+```
+
+2. Install PHP dependencies
+```bash
+composer install
+```
+
+3. Install NPM dependencies
+```bash
+npm install
+```
+
+4. Configure environment
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+5. Run migrations
+```bash
+php artisan migrate
+```
+
+6. Start development server
+```bash
+php artisan serve
+```
+
+7. Compile assets
+```bash
+npm run dev
+```
+
+### Project Structure
+- `app/` - Contains the core code of the application
+- `config/` - All configuration files
+- `database/` - Database migrations and seeders
+- `public/` - Publicly accessible files
+- `resources/` - Views, raw assets, and translations
+- `routes/` - All route definitions
+- `tests/` - Application tests
+
+### Development Guidelines
+- Follow PSR-12 coding standards
+- Write meaningful commit messages
+- Keep controllers thin, models fat
+- Write tests for new features
