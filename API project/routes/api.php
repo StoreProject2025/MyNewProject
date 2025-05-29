@@ -21,7 +21,7 @@ Route::middleware('auth:api')->group(function () {
     });
     
     Route::post('logout', [AuthController::class, 'logout']);
-    
+     
     Route::apiResource('products', ProductController::class);
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('cart', CartController::class)->only(['index', 'store', 'update', 'destroy']);
