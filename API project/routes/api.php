@@ -42,7 +42,7 @@ Route::middleware('auth:api')->group(function () {
 
     // Admin User Routes
     Route::apiResource('admin/users', AdminUserController::class);
-
+    
     // Admin Order Routes
     Route::apiResource('admin/orders', AdminOrderController::class)->only(['index', 'show', 'update']);
 }); 
