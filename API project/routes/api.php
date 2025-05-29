@@ -11,7 +11,7 @@ use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\RatingController;
 use App\Http\Controllers\API\AdminUserController;
 use App\Http\Controllers\API\AdminOrderController;
-
+ 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
   
