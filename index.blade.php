@@ -1,98 +1,120 @@
 @extends('layouts.master')
-@section('title', 'Categories')
+@section('title', 'Products List')
 
 @section('content')
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col-md-6">
-                <h2>Categories</h2>
-            </div>
-            <div class="col-md-6 text-end">
-                @if(auth()->user()->hasPermissionTo('add_category'))
-                    <a href="{{ route('categories.create') }}" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> Add New Category
-                    </a>
-                @endif
-            </div>
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h2>Products List</h2>
         </div>
-
-        <div class="row">
-            @foreach($categories as $category)
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $category->name }}</h5>
-                            <p class="card-text">{{ $category->description }}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-<<<<<<< HEAD
-                                <a href="{{ route('categories.edit', $category->slug) }}" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-edit"></i> Edit
-                                </a>
-                                <form action="{{ route('categories.destroy', $category->slug) }}" method="POST" class="d-inline">
-=======
-                                <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-edit"></i> Edit
-                                </a>
-                                <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="d-inline">
->>>>>>> 37832177f92ffd6ce3d73febe73a42b600edf666
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this category?')">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
+        <div class="col-md-6 text-end">
+            <a href="{{ route('products.create') }}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add New Product
+            </a>
         </div>
     </div>
-@endsection
 
-@section('styles')
-<style>
-.categories-header {
-    text-align: center;
-    padding: 2rem 0;
-}
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
-.category-card {
-    transition: transform 0.3s;
-}
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($products as $product)
+                            <tr>
+                                <td>
+                                    @if($product->image)
+                                        <img src="{{ asset('storage/' . $product->image) }}" 
+                                             alt="{{ $product->name }}" 
+                                             class="img-thumbnail" 
+                                             style="max-width: 50px;">
+                                    @else
+                                        <img src="{{ asset('images/no-image.png') }}" 
+                                             alt="No Image" 
+                                             class="img-thumbnail" 
+                                             style="max-width: 50px;">
+                                    @endif
+                                </td>
+                                <td>{{ $product->name }}</td>
+                                <td>{{ $product->category->name }}</td>
+<<<<<<< HEAD
+                                <td>
+                                    @if($product->discount > 0)
+                                        <span class="text-muted text-decoration-line-through">{{ number_format($product->price, 2) }}</span>
+                                        <span class="text-danger">{{ number_format($product->discounted_price, 2) }}</span>
+                                        <span class="badge bg-danger">{{ $product->discount }}%</span>
+                                    @else
+                                        {{ number_format($product->price, 2) }}
+                                    @endif
+                                </td>
+=======
+                                <td>{{ number_format($product->price, 2) }}</td>
+>>>>>>> 37832177f92ffd6ce3d73febe73a42b600edf666
+                                <td>
+                                    <span class="badge {{ $product->is_active ? 'bg-success' : 'bg-danger' }}">
+                                        {{ $product->is_active ? 'Active' : 'Inactive' }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="{{ route('products.edit', $product) }}" 
+                                           class="btn btn-sm btn-info" 
+                                           title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+<<<<<<< HEAD
+                                        @if(auth()->user()->hasPermissionTo('manage_discounts'))
+                                        <a href="{{ route('products.edit', $product) }}#discount" 
+                                           class="btn btn-sm btn-warning" 
+                                           title="Add Discount">
+                                            <i class="fas fa-percent"></i>
+                                        </a>
+                                        @endif
+=======
+>>>>>>> 37832177f92ffd6ce3d73febe73a42b600edf666
+                                        <form action="{{ route('products.destroy', $product) }}" 
+                                              method="POST" 
+                                              class="d-inline" 
+                                              onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" 
+                                                    class="btn btn-sm btn-danger" 
+                                                    title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center">No products found.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
 
-.category-card:hover {
-    transform: translateY(-5px);
-}
-
-.category-card img {
-    height: 300px;
-    object-fit: cover;
-}
-
-.category-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.category-card:hover .category-overlay {
-    opacity: 1;
-}
-
-.category-overlay .btn {
-    padding: 0.75rem 2rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-</style>
+            <div class="d-flex justify-content-center mt-4">
+                {{ $products->links() }}
+            </div>
+        </div>
+    </div>
+</div>
 @endsection 
